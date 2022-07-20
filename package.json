@@ -1,0 +1,42 @@
+{
+  "name": "nvim-test-js",
+  "version": "0.0.3",
+  "description": "A harness for testing vim via javascript",
+  "main": "dist/index",
+  "types": "dist/index",
+  "dependencies": {
+    "neovim": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.7.7",
+    "mocha": "^6.2.0",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.3"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "prepublish": "rm -rf ./dist && tsc && cp src/vimrc.vim dist/vimrc.vim",
+    "test": "mocha --require ts-node/register --exit test/**/**/*.test.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kizza/nvim-test-js.git"
+  },
+  "keywords": [
+    "test",
+    "vim",
+    "javascript",
+    "neovim",
+    "nvim"
+  ],
+  "author": "kizza (Keiran O'Leary)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kizza/nvim-test-js/issues"
+  },
+  "homepage": "https://github.com/kizza/nvim-test-js#readme"
+}
