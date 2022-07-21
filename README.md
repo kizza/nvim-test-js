@@ -1,4 +1,4 @@
-# Test your vim with js
+# Test your vim with js!
 
 A harness for testing vim via javascript. Provides an ergonimic interface to a [NeovimClient](https://neovim.io/node-client/) for easy testing of vim (plugins or the like).
 
