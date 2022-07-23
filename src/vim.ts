@@ -23,12 +23,15 @@ const stopVim = (nvim: NeovimClient, proc: cp.ChildProcess) => {
   proc.kill("SIGKILL");
 };
 
-export const withVim = async (test: WithVim, options: VimOptions = {}) => {
-  const {nvim, proc} = await startVim(options);
-  await delay(100);
-  await test(nvim);
-  stopVim(nvim, proc);
-};
+export const vimRunner = (options: VimOptions = {}) =>
+  async (test: WithVim) => {
+    const {nvim, proc} = await startVim(options);
+    await delay(100);
+    await test(nvim);
+    stopVim(nvim, proc);
+  };
+
+export const withVim = vimRunner(defaultOptions)
 
 export const delay = (milliseconds: number) =>
   new Promise((resolve, _) => {
