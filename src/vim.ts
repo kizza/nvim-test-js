@@ -10,9 +10,9 @@ const defaultOptions = {
 export type VimOptions = Partial<typeof defaultOptions>
 export type WithVim = (nvim: NeovimClient) => Promise<void>;
 
-const startVim = async (options: VimOptions = {}) => {
-  const vimrc = options.vimrc || defaultOptions.vimrc
-  const proc = cp.spawn("nvim", ["-u", vimrc, "-i", "NONE", "--embed"], {cwd: __dirname});
+const startVim = async (options: VimOptions) => {
+  const {vimrc, cwd} = {...defaultOptions, ...options}
+  const proc = cp.spawn("nvim", ["-u", vimrc, "-i", "NONE", "--embed"], {cwd: cwd});
   const nvim: NeovimClient = attach({proc});
   nvim.uiAttach(120, 120, {}).catch(_ => {});
   return {proc, nvim};
