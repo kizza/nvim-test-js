@@ -1,6 +1,6 @@
 {
   "name": "nvim-test-js",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "A harness for testing vim via javascript",
   "main": "dist/index",
   "types": "dist/index",
