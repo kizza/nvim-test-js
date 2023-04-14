@@ -3,12 +3,55 @@
 
 A harness for testing vim via javascript. Provides an ergonimic interface to a [NeovimClient](https://neovim.io/node-client/) for easy testing of vim (plugins or the like).
 
+## How to install it
+
+Install `nvim-test-js` along with your chosen test runner (I'm using [yarn](https://yarnpkg.com/), and am choosing [mocha](https://mochajs.org/) to run my tests with)
+```sh
+yarn init
+yarn add nvim-test-js mocha
+```
+Then add the `test` script name to your `package.json` and run with `yarn test`
+```json
+"scripts": {
+  "test": "mocha --exit test/**/*.test.js",
+}
+```
+
+### Typescript?
+
+I find it easier to explore unknown apis (like Neovim's) with typescript.  If you have the same preference you can do the above but with typescript:
+
+```sh
+yarn init
+yarn add nvim-test-js mocha @types/mocha @types/node ts-node typescript
+```
+Then your `test` script in your `package.json` would become:
+```json
+"scripts": {
+  "test": "mocha --require ts-node/register --exit test/**/*.test.ts",
+}
+```
 
 ## How to use it
 
-Use the entrypoint `withVim` to encapsulate your test with a live headless vim instance.  You can then exercise vim to your liking via the [NeovimClient](https://neovim.io/node-client/) api.
+Use the entrypoint `withVim` to encapsulate your test with a live headless vim instance.  You can then exercise vim to your liking via the [NeovimClient](https://neovim.io/node-client/) api.  Depending on whether you're running typescript or vanilla js - you can execute the files below with `yarn test`
 
 ```js
+// test/index.test.js
+
+const assert = require("assert");
+const { withVim } = require("nvim-test-js");
+
+it("gives me the vim", () =>
+  withVim(async nvim => {
+    const result = await nvim.commandOutput('echo "It works!"');
+    assert.equal(result, "It works!");
+  }));
+```
+
+```typescript
+// test/index.test.ts
+
 import assert from "assert";
 import withVim from "nvim-test-js";
 
